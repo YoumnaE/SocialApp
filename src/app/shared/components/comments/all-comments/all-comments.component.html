@@ -1,0 +1,36 @@
+<div class="mt-4 rounded p-3">
+    <div class="flex gap-2 items-center mb-1">
+        <img [src]="comment.commentCreator.photo" class="w-6 h-6 rounded-full">
+        <div class="w-3/4">
+            <div class="bg-gray-200 rounded py-2 w-full px-4">
+                <div class="flex justify-between items-center">
+                    <span class="text-xs font-medium">{{comment.commentCreator.name}}</span>
+                    @if (comment.commentCreator._id==userId) {
+                    <input type="checkbox" [id]="comment._id" class="hidden peer">
+                    <!-- your icon -->
+                    <label [for]="comment._id">
+                        <i class="fa-solid text-xs fa-bars text-gray-500 cursor-pointer"></i>
+                    </label>
+                    
+                    <!-- dropdown -->
+                    <div class="hidden peer-checked:block absolute right-0 mt-2 bg-white shadow rounded p-2 w-32">
+                        
+                            <button class="hover:bg-gray-100 p-1 cursor-pointer w-full rounded text-start">Edit</button>
+                            <p (click)="deleteCommentItem(comment._id,comment.post)" class="hover:bg-gray-100 p-1 cursor-pointer text-red-500">Delete</p>
+                        
+                    </div>}
+                </div>
+                <p class="text-sm text-gray-600">{{comment.content}}</p>
+                @if (comment.image) {
+                    <img [src]="comment.image" class="rounded">
+                }
+            </div>
+            <div class="flex justify-start mt-1">
+                <p class="text-xs text-gray-400">{{comment.createdAt|date: 'shortTime'}}</p>
+                <button class="font-bold text-xs text-gray-500 ms-2 cursor-pointer" >Like</button>
+                <button class="font-bold text-xs text-gray-500 ms-2 cursor-pointer" >Reply</button>
+            </div>
+        </div>
+    </div>
+    
+</div>

@@ -1,0 +1,21 @@
+<div class="rounded bg-white shadow p-2">
+    <div class="flex justify-center items-center gap-2">
+        <img [src]="suggestion.photo" class="rounded-full w-1/5">
+        <div>
+            <h4 class="font-bold text-sm">{{suggestion.name}}</h4>
+            <p class="text-xs text-gray-700">{{suggestion.followersCount}} Followers</p>
+            <p class="text-2xs text-gray-500">{{suggestion.mutualFollowerCount}} Mutuals</p>
+        </div>
+    </div>
+    <button [disabled]="isLoading" (click)="followUser(suggestion._id)" class="disabled:bg-blue-50 disabled:text-blue-400 bg-blue-100 text-blue-600 text-sm w-full rounded py-1 mt-1 cursor-pointer hover:bg-blue-200">
+        @if (!isFollowed) {
+            @if (isLoading) {
+                Updating..
+            }@else {
+                Follow
+            }
+        }@else {
+            Followed
+        }
+    </button>
+</div>

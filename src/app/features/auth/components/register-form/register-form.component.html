@@ -1,0 +1,110 @@
+<form [formGroup]="registerForm" (ngSubmit)="onRegisterSubmit()" class="mx-auto my-3">
+    <div class="my-4.5">
+        <label for="fullName" class="block mb-1 text-sm font-medium text-heading">Full Name</label>
+        <div class="relative">
+            <div class="absolute inset-y-0 inset-s-0 flex items-center ps-3 pointer-events-none">
+                <i class="text-gray-400 far fa-user-alt"></i>
+            </div>
+            <input formControlName="name" type="text" id="fullName" class="block w-full p-3 ps-9 bg-gray-100 border border-default-medium text-heading rounded" placeholder="Enter your full name">
+        </div>
+        @if (registerForm.get('name')?.touched) {
+            @if(registerForm.get('name')?.getError('required')){
+                <p class="text-red-600">*Name is required</p>
+            }
+            @if(registerForm.get('name')?.getError('minlength')){
+                <p class="text-red-600">*Name must be at least 3 characters</p>
+            }
+        }
+    </div>
+    <div class="my-4.5">
+        <label for="email" class="block mb-2.5 text-sm font-medium text-heading">Email</label>
+        <div class="relative">
+            <div class="absolute inset-y-0 inset-s-0 flex items-center ps-3 pointer-events-none">
+                <i class="text-gray-400 far fa-solid fa-at"></i>
+            </div>
+            <input formControlName="email" type="email" id="email" class="block w-full p-3 ps-9 bg-gray-100 border border-default-medium text-heading rounded" placeholder="name@example">
+        </div>
+        @if(registerForm.get('email')?.touched){
+            @if(registerForm.get('email')?.getError('required')){
+                <p class="text-red-600">*Email is required</p>
+            }
+            @if(registerForm.get('email')?.getError('email')){
+                <p class="text-red-600">*Email is invalid</p>
+            }
+        }
+    </div>
+    <div class="my-4.5">
+        <label for="password" class="block mb-2.5 text-sm font-medium text-heading">Password</label>
+        <div class="relative">
+            <div class="absolute inset-y-0 inset-s-0 flex items-center ps-3 pointer-events-none">
+                <i class="text-gray-400 far fa-solid fa-key"></i>
+            </div>
+            <input formControlName="password" type="password" id="password"
+            class="block w-full p-3 ps-9 bg-gray-100 border border-default-medium text-heading rounded"
+            placeholder="Create a strong Password">
+        </div>
+        @if(registerForm.get('password')?.touched){
+            @if(registerForm.get('password')?.getError('required')){
+                <p class="text-red-600">*Password is required</p>
+            }
+            @if(registerForm.get('password')?.getError('pattern')){
+                <p class="text-red-600">*Password should be at least eight characters, at least one upper case English letter, one lower case English letter, one number and one special character</p>
+            }
+            }
+    </div>
+    <div class="my-4.5">
+        <label for="confirmPassword" class="block mb-2.5 text-sm font-medium text-heading">Confirm Password</label>
+        <div class="relative">
+            <div class="absolute inset-y-0 inset-s-0 flex items-center ps-3 pointer-events-none">
+                <i class="text-gray-400 far fa-solid fa-key"></i>
+            </div>
+            <input formControlName="rePassword" type="password" id="confirmPassword"
+            class="block w-full p-3 ps-9 bg-gray-100 border border-default-medium text-heading rounded"
+            placeholder="Confirm your password">
+        </div>
+        @if (registerForm.get('rePassword')?.touched) {
+            @if (registerForm.get('rePassword')?.getError('required')) {
+                <p class="text-red-600">*Confirm password is required</p>
+        }
+            @if (registerForm.getError('missMatch')) {
+                <p class="text-red-600">*Password and confirm password should be the same</p>
+        }
+    }
+    </div>
+    <div class="flex gap-3 ">
+        <div class="my-4.5 w-1/2">
+            <label for="gender" class="block mb-2.5 text-sm font-medium text-heading">Gender</label>
+            <div class="relative">
+                <div class="absolute inset-y-0 inset-s-0 flex items-center ps-3 pointer-events-none">
+                    <i class="text-gray-400 fas fa-venus-mars"></i>
+                </div>
+
+                <select formControlName="gender" id="gender"
+                class="block w-full p-3 ps-9 bg-gray-100 border border-default-medium text-heading rounded">
+                    <option value="" disabled selected>Select your gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+            </div>
+            @if(registerForm.get('gender')?.touched){
+                @if(registerForm.get('gender')?.getError('required')){
+                    <p class="text-red-600">*Gender is required</p>
+            }}
+        </div>
+        <div class="my-4.5 w-1/2">
+            <label for="birthdate" class="block mb-2.5 text-sm font-medium text-heading">Birthdate</label>
+            <div class="relative">
+                <div class="absolute inset-y-0 inset-s-0 flex items-center ps-3 pointer-events-none">
+                    <i class="text-gray-400 far fa-calendar"></i>
+                </div>
+                <input formControlName="dateOfBirth" type="date" id="birthdate"
+                class="block w-full p-3 ps-9 bg-gray-100 border border-default-medium text-heading rounded">
+            </div>
+            @if(registerForm.get('dateOfBirth')?.touched){
+                @if(registerForm.get('dateOfBirth')?.getError('required')){
+                    <p class="text-red-600">*Birthdate is required</p>
+            }}
+        </div>
+    </div>
+    <button class="bg-blue-600 rounded w-full text-white py-3.5 font-bold cursor-pointer">Create Account <i class="fa-solid fa-arrow-right"></i></button>
+</form>

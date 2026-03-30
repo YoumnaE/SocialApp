@@ -1,0 +1,33 @@
+<form [formGroup]="loginForm" (ngSubmit)="onLoginSubmit()" class="mx-auto my-3">
+    <div class="my-4.5">
+        <label for="email" class="block mb-2.5 text-sm font-medium text-heading">Email</label>
+        <div class="relative">
+            <div class="absolute inset-y-0 inset-s-0 flex items-center ps-3 pointer-events-none">
+                <i class="text-gray-400 far fa-solid fa-at"></i>
+            </div>
+            <input formControlName="email" type="email" id="email" class="block w-full p-3 ps-9 bg-gray-100 border border-default-medium text-heading rounded" placeholder="name@example">
+        </div>
+        @if(loginForm.get('email')?.touched){
+            @if(loginForm.get('email')?.getError('required')){
+                <p class="text-red-600">*Email is required</p>
+            }
+        }
+    </div>
+    <div class="my-4.5">
+        <label for="password" class="block mb-2.5 text-sm font-medium text-heading">Password</label>
+        <div class="relative">
+            <div class="absolute inset-y-0 inset-s-0 flex items-center ps-3 pointer-events-none">
+                <i class="text-gray-400 far fa-solid fa-key"></i>
+            </div>
+            <input formControlName="password" type="password" id="password"
+            class="block w-full p-3 ps-9 bg-gray-100 border border-default-medium text-heading rounded"
+            placeholder="Enter your Password">
+        </div>
+        @if(loginForm.get('password')?.touched){
+            @if(loginForm.get('password')?.getError('required')){
+                <p class="text-red-600">*Password is required</p>
+            }
+            }
+    </div>
+    <button class="bg-blue-600 rounded w-full text-white py-3.5 font-bold cursor-pointer">Sign in <i class="fa-solid fa-arrow-right"></i></button>
+</form>

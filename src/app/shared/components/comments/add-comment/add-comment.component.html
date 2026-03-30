@@ -1,0 +1,27 @@
+<div class="bg-white rounded shadow p-5 flex items-start gap-2">
+    <img src="avatardef.jpg" alt="pfp" class="rounded-full w-1/9 mt-2">
+    <form class="bg-gray-100 rounded p-2 w-full" [formGroup]="addCommentsForm" (ngSubmit)="onAddCommentSubmit()">
+        <input formControlName="content" class="rounded bg-gray-100 w-full scroll-auto border-0 p-1 my-2" name="postText" id="postText" placeholder="Comment as {{userData.name}}"/>
+        @if(imagePreview){
+            <div class="overflow-hidden mb-2 relative rounded">
+                <img class="max-h-100 object-cover w-full" [src]="imagePreview" alt="">
+                <button type="button" (click)="imagePreview=''" class="cursor-pointer absolute p-1 top-1 inset-e-1 rounded-full bg-secondary/50 text-xs"><i class="fas fa-times "></i></button>
+            </div>
+        }
+        <div class="flex justify-between items-center">
+            <label [for]="postId" class="cursor-pointer text-sm">
+                <i class="fa-regular fa-image text-gray-400"></i>
+                <div class="flex items-center gap-1">
+                    <input (change)="onImageChange($event)" [id]="postId" type="file" class="hidden">
+                </div>
+            </label>
+            <button [disabled]="isLoading || (!addCommentsForm.get('content')?.value?.length && !imagePreview)" class="bg-blue-600 cursor-pointer hover:bg-blue-700 text-white text-sm rounded-full py-1.5 px-3">
+                @if (isLoading) {
+                    <i class="fa-solid fa-spinner fa-spin"></i>
+                }@else{
+                <i class="fa-solid fa-paper-plane"></i>
+                }
+            </button>
+        </div>
+    </form>
+</div>

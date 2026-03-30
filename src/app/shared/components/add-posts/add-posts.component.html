@@ -1,0 +1,37 @@
+<div class="bg-white rounded shadow p-5">
+    <div class="flex gap-3 items-center">
+        <img src="avatardef.jpg" alt="pfp" class="rounded-full w-1/10">
+        <div>
+            <p class="font-bold">{{userData.name}}</p>
+            <select name="publicity" id="publicity" class="rounded-full bg-gray-100 text-xs py-1 px-4 hover:bg-gray-200">
+                <option value="public"><i class="fa-solid fa-earth-americas"></i> public</option>
+                <option value="friends"><i class="fa-solid fa-user-group"></i> Friends</option>
+            </select>
+        </div>
+    </div>
+    <form [formGroup]="addPostForm" (ngSubmit)="onAddPostSubmit()">
+        <textarea formControlName="body" class="rounded bg-gray-100 w-full h-28 scroll-auto border-0 p-3 my-2" name="postText" id="postText" placeholder="What's on your mind {{userData.name}}?"></textarea>
+        @if(imagePreview){
+            <div class="overflow-hidden mb-2 relative rounded">
+                <img class="max-h-100 object-cover w-full" [src]="imagePreview" alt="">
+                <button type="button" (click)="imagePreview=''" class="cursor-pointer absolute p-1 top-1 inset-e-1 rounded-full bg-secondary/50 text-xs"><i class="fas fa-times "></i></button>
+            </div>
+        }
+        <div class="flex justify-between items-center">
+            <label for="postImage" class="cursor-pointer text-sm">
+                <i class="fa-regular fa-image text-green-400"></i>
+                Photo/Video
+                <div class="flex items-center gap-1">
+                    <input (change)="onImageChange($event)" id="postImage" type="file" class="hidden">
+                </div>
+            </label>
+            <button [disabled]="isLoading || (!addPostForm.get('body')?.value?.length && !imagePreview)" class="bg-blue-600 cursor-pointer hover:bg-blue-700 text-white text-sm rounded-full py-1.5 px-3">
+                @if (isLoading) {
+                    <i class="fa-solid fa-spinner fa-spin"></i> Posting
+                }@else{
+                <i class="fa-solid fa-paper-plane"></i> Post
+                }
+            </button>
+        </div>
+    </form>
+</div>

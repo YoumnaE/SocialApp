@@ -1,0 +1,20 @@
+@if(isLoading){
+    <p class="text-center text-4xl text-gray-500 mt-52">Loading <i class="fas fa-spin fa-spinner"></i></p>
+}@else{
+    <div class="my-7 bg-white rounded p-7 ">
+        <div class="flex justify-between items-center shadow-lg rounded p-4">
+            <div>
+                <h2 class="text-3xl font-bold capitalize">{{user.name}}</h2>
+                <p class="text-gray-400">Date of Birth At: {{user.dateOfBirth |date}}</p>
+                <div class="flex justify-center-items-center mt-4 text-gray-500 gap-3">
+                    <p ><span class="font-bold text-gray-600">{{user.followersCount}}</span> Followers </p>
+                <p><span class="font-bold text-gray-600">{{user.followingCount}}</span> Followings</p>
+                </div>
+                <button routerLink="/change-password" class="rounded cursor-pointer hover:bg-blue-600 bg-blue-500 px-3 py-2 text-white mt-4">Change Password</button>
+            </div>
+            <img [src]="user.photo" class="rounded-full w-1/5 border-3 border-white">
+        </div>
+    </div>
+
+    <app-all-posts (postDeleted)="removePost($event)" [allPosts]="userPosts"/>
+}

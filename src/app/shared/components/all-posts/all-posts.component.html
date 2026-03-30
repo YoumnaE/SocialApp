@@ -1,0 +1,3 @@
+@for (post of allPosts; track post._id) {
+    <app-post-card (postDeleted)="onPostDeleted($event)" (postUpdated)="onPostUpdated($event)" [post]="post"/>
+}

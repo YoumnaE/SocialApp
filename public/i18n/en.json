@@ -1,0 +1,9 @@
+{
+    "navbar":{
+        "login":"login",
+        "register":"register",
+        "feed":"feed",
+        "notifications":"notifications",
+        "profile":"profile"
+    }
+}

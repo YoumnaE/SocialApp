@@ -1,0 +1,136 @@
+<div class="bg-white rounded p-3 my-3 shadow">
+        <div class="flex justify-between items-center">
+            <div class="flex gap-3 items-center">
+                <img [src]="post.user.photo" alt="pfp" class="rounded-full w-1/10">
+                <div>
+                    <p class="font-bold">{{post.user.name}}</p>
+                    <p class="text-sm text-gray-500">{{post.createdAt |date: 'short'}}</p>
+                </div>
+            </div>
+            <div class="relative inline-block">
+            <!-- hidden checkbox -->
+                <input type="checkbox" [id]="post._id" class="hidden peer">
+
+                <!-- your icon -->
+                <label [for]="post._id">
+                    <i class="fa-solid fa-bars text-gray-500 cursor-pointer"></i>
+                </label>
+
+                <!-- dropdown -->
+                <div class="hidden peer-checked:block absolute right-0 mt-2 bg-white shadow rounded p-2 w-32">
+                    <p class="hover:bg-gray-100 p-1 cursor-pointer">Save</p>
+                    @if (post.user._id==userId) {
+                        <button (click)="openUpdateModal()"  class="hover:bg-gray-100 p-1 cursor-pointer w-full rounded text-start">Edit</button>
+                        <p (click)="deletePostItem(post._id)" class="hover:bg-gray-100 p-1 cursor-pointer text-red-500">Delete</p>
+                    }
+                </div>
+            </div>
+        </div>
+        <p class="mt-2">{{post.body}}</p>
+        <img [src]="post.image" class="rounded my-2 max-h-70 sm:max-h-100 m-auto">
+        <span class="text-sm text-gray-600">{{post.likesCount}} 
+            @if(post.likesCount==1){
+                Like
+            }@else {
+                Likes
+            }
+        </span>
+        <span class="text-sm text-gray-600 ms-3">{{post.commentsCount}} 
+            @if(post.commentsCount==1){
+                Comment
+            }@else {
+                Comments
+            }
+            </span>
+        <div class="grid grid-cols-3 border-t-2 border-gray-200 pt-2">
+            <button class="text-gray-600 rounded hover:bg-gray-200 cursor-pointer py-1 text-sm"><i class="fa-regular fa-thumbs-up"></i> Like</button>
+            <button (click)="getPostComments(post._id)" class="text-gray-600 rounded hover:bg-gray-200 cursor-pointer py-1 text-sm">
+                @if (commentsLoading) {
+                    Loading <i class="fas fa-spinner fa-spin"></i>
+                }@else{
+                    <i class="fa-regular fa-comment"></i> Comment
+                }
+            </button>
+            <button class="text-gray-600 rounded hover:bg-gray-200 cursor-pointer py-1 text-sm"><i class="fa-regular fa-share-from-square"></i> Share</button>
+        </div>
+        @if(post.topComment && isShowTopComment){
+            <div class="mt-4 bg-gray-50 rounded p-3">
+                <div class="flex gap-2 items-center mb-1">
+                    <img [src]="post.topComment.commentCreator.photo" class="w-6 h-6 rounded-full">
+                    <div class="w-3/4">
+                        <div class="bg-gray-200 rounded py-2 w-full px-4">
+                            <span class="text-xs font-medium">{{post.topComment.commentCreator.name}}</span>
+                            <p class="text-sm text-gray-600">{{post.topComment.content}}</p>
+                        </div>
+                        <div class="flex justify-start mt-1">
+                            <p class="text-xs text-gray-400">{{post.topComment.createdAt|date: 'shortTime'}}</p>
+                            <button class="font-bold text-xs text-gray-500 ms-2 cursor-pointer" >Like</button>
+                            <button class="font-bold text-xs text-gray-500 ms-2 cursor-pointer" >Reply</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        @if(!isShowTopComment) {
+            <div class="bg-white w-full">
+                @for (comment of allComments; track $index) {
+                <app-all-comments (commentDeleted)="removeComment($event)" [comment]="comment"/>
+            }@empty {
+                <div class="bg-gray-100 rounded flex items-center justify-center w-full h-20">
+                    <p class="text-gray-700 font-bold">No Comments Yet</p>
+                </div>
+            }
+            <div class="my-3">
+                <app-add-comment (sendAddedCommentToParent)="allComments.unshift($event)" [postId]="post._id"/>
+            </div>
+            </div>
+        }
+        
+    </div>
+
+
+
+    @if(updateModal){
+        <div class=" overflow-y-auto overflow-x-hidden fixed top-0 bg-black/50 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative p-4 mx-auto mt-5 max-w-2xl max-h-full">
+        <!-- Modal content -->
+        <div class="relative bg-neutral-primary-soft border border-default rounded-base shadow-sm p-4 md:p-6">
+            <!-- Modal header -->
+            <div class="flex items-center justify-between border-b border-default pb-4 md:pb-5">
+                <h3 class="text-lg font-medium text-heading">
+                    Update Post
+                </h3>
+                <button (click)="updateModal=false" type="button" class="text-body bg-transparent hover:bg-neutral-tertiary hover:text-heading rounded-base text-sm w-9 h-9 ms-auto inline-flex justify-center items-center" data-modal-hide="default-modal">
+                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18 17.94 6M18 18 6.06 6"/></svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <form [formGroup]="updatePostForm" (ngSubmit)="updatePost()">
+        <textarea formControlName="body" class="rounded bg-gray-100 w-full h-28 scroll-auto border-0 p-3 my-2" name="postText" id="postText"></textarea>
+        @if(updateImagePreview){
+            <div class="overflow-hidden mb-2 relative rounded">
+                <img class="max-h-100 object-cover w-full" [src]="updateImagePreview" alt="">
+                <button type="button" (click)="updateImagePreview=''" class="cursor-pointer absolute p-1 top-1 inset-e-1 rounded-full bg-secondary/50 text-xs"><i class="fas fa-times "></i></button>
+            </div>
+        }
+        <div class="flex justify-between items-center">
+            <label for="postImage" class="cursor-pointer text-sm">
+                <i class="fa-regular fa-image text-green-400"></i>
+                Photo/Video
+                <div class="flex items-center gap-1">
+                    <input (change)="onImageChange($event)" id="postImage" type="file" class="hidden">
+                </div>
+            </label>
+            <button [disabled]="isLoading || (!updatePostForm.get('body')?.value?.length && !updateImagePreview)" class="bg-blue-600 cursor-pointer hover:bg-blue-700 text-white text-sm rounded-full py-1.5 px-3">
+                @if (isLoading) {
+                    <i class="fa-solid fa-spinner fa-spin"></i> Updating
+                }@else{
+                <i class="fa-solid fa-paper-plane"></i> Update
+                }
+            </button>
+        </div>
+    </form>
+</div>
+    </div>
+</div>
+    }

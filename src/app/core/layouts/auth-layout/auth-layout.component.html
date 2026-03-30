@@ -1,0 +1,87 @@
+<section class="grid grid-cols-2">
+    <div class="col-span-2 md:col-span-1 p-7
+     bg-[linear-gradient(rgba(20,71,230,0.8),rgba(20,71,230,0.8)),url('/social-media-branding.avif')] bg-cover bg-center">
+        <div class="flex justify-center items-center gap-3.5 w-1/4">
+            <span class="py-3 px-5 rounded-md border border-blue-200 bg-blue-300/50 text-white font-bold text-lg">S</span>
+            <h5 class="text-white font-bold text-xl">SocialHub</h5>
+        </div>
+        <h1 class="text-5xl font-bold text-white w-3/4 my-3.5">Welcome Back to<span class="text-cyan-300"> SocialHub App</span></h1>
+        <p class="text-white my-2.5">Sign in to connect people all over the world</p>
+        <div class="grid grid-cols-2">
+            <div class="md:col-span-1 sm:col-span-2 py-3 px-5 m-1.5 rounded-md border border-blue-200 bg-blue-300/50 text-white flex items-center gap-3.5 hover:scale-105 transition-all">
+                <span class="py-2 px-3 rounded-md text-emerald-500 bg-blue-500 font-bold text-lg"><i class="fa-solid fa-message"></i></span>
+                <div>
+                    <h5>Real-time Chat</h5>
+                    <p>Instant messaging</p>
+                </div>
+            </div>
+            <div class="md:col-span-1 sm:col-span-2 py-3 px-5 m-1.5 rounded-md border border-blue-200 bg-blue-300/50 text-white flex items-center gap-3.5 hover:scale-105 transition-all">
+                <span class="py-2 px-3 rounded-md text-white bg-blue-600 font-bold text-lg"><i class="fa-solid fa-image"></i></span>
+                <div>
+                    <h5>Share Media</h5>
+                    <p>Photos & videos</p>
+                </div>
+            </div>
+            <div class="md:col-span-1 sm:col-span-2 py-3 px-5 m-1.5 rounded-md border border-blue-200 bg-blue-300/50 text-white flex items-center gap-3.5 hover:scale-105 transition-all">
+                <span class="py-2 px-3 rounded-md text-white bg-purple-500 font-bold text-lg"><i class="fa-solid fa-bell"></i></span>
+                <div>
+                    <h5>Smart Alerts</h5>
+                    <p>Stay updated</p>
+                </div>
+            </div>
+            <div class="md:col-span-1 sm:col-span-2 py-3 px-5 m-1.5 rounded-md border border-blue-200 bg-blue-300/50 text-white flex items-center gap-3.5 hover:scale-105 transition-all">
+                <span class="py-2 px-3 rounded-md text-emerald-500 bg-blue-500 font-bold text-lg"><i class="fa-solid fa-users"></i></span>
+                <div>
+                    <h5>Communities</h5>
+                    <p>Find your tribe</p>
+                </div>
+            </div>
+        </div>
+        <div class="flex justify-center">
+            <div class="text-white m-3">
+                <div class="flex justify-center items-center gap-1.5 font-bold">
+                    <i class="fa-solid fa-users text-xl"></i>
+                    <h4 class="text-3xl">2M+</h4>
+                </div>
+                <p>Active Users</p>
+            </div>
+            <div class="text-white m-3">
+                <div class="flex justify-center items-center gap-1.5 font-bold">
+                    <i class="fa-solid fa-heart text-xl"></i>
+                    <h4 class="text-3xl">10M+</h4>
+                </div>
+                <p>Posts Shared</p>
+            </div>
+            <div class="text-white m-3">
+                <div class="flex justify-center items-center gap-1.5 font-bold">
+                    <i class="fa-solid fa-message text-xl"></i>
+                    <h4 class="text-3xl">50M+</h4>
+                </div>
+                <p>Messages Sent</p>
+            </div>
+        </div>
+        <div class=" p-5 m-1.5 rounded-md border border-blue-200 bg-blue-300/50 text-white hover:bg-blue-300/57 transition-all">
+            <div class="flex">
+                <i class="fa-solid fa-star text-yellow-400"></i>
+                <i class="fa-solid fa-star text-yellow-400"></i>
+                <i class="fa-solid fa-star text-yellow-400"></i>
+                <i class="fa-solid fa-star text-yellow-400"></i>
+                <i class="fa-solid fa-star text-yellow-400"></i>
+            </div>
+            <p class="italic text-xl my-4">"SocialHub has completely changed how I connect with friends and discover new communities. The experience is seamless!"</p>
+            <div class="flex justify-center items-center w-1/3 gap-3.5">
+                <img src="/avatar.png" alt="pfp" class="rounded-full w-1/4">
+                <div>
+                    <h6 class="italic text-lg">Alex Johnson</h6>
+                    <p class="text-blue-200 text-md my-0">Product Designer</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-span-2 md:col-span-1 bg-gray-200 flex justify-center items-center sm:h-190">
+        <div class="w-2/3 bg-white rounded shadow m-auto py-5 px-6">
+            <router-outlet/>
+        </div>
+        
+    </div>
+</section>
